@@ -1,0 +1,136 @@
+server:
+  port: ${PORT:2333}  # Railway automatically sets PORT environment variable
+  address: 0.0.0.0    # Bind to all interfaces for Railway
+  # Enhanced server settings for better performance
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+  # Connection timeout settings 
+  netty:
+    option:
+      SO_KEEPALIVE: true
+      SO_REUSEADDR: true
+
+lavalink:
+  plugins:
+    # LavaSrc plugin for multiple music sources - UPDATED to latest
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.8.1"
+      repository: "https://maven.lavalink.dev/releases"
+    # YouTube plugin - Latest stable version
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.16.0" 
+      repository: "https://maven.lavalink.dev/releases"
+  server:
+    # Enhanced HTTP timeout settings for remote cipher server communication
+    timeouts:
+      connectTimeoutMs: 10000
+      connectionRequestTimeoutMs: 10000
+      socketTimeoutMs: 15000
+    password: "${LAVALINK_PASSWORD:youshallnotpass}"  # Use environment variable for security
+    sources:
+      # Lavalink v4 configuration - YouTube DISABLED (using plugin instead)
+      youtube: false   # MUST be false when using youtube-source plugin
+      bandcamp: true  # Keep native support
+      soundcloud: true  # Enable native as fallback for LavaSrc
+      twitch: true
+      vimeo: true 
+      http: true  # Always keep HTTP support for direct links
+      local: true  # Support for local files
+    filters:
+      volume: true
+      equalizer: true
+      karaoke: true
+      timescale: true
+      tremolo: true
+      vibrato: true
+      distortion: true
+      rotation: true
+      channelMix: true
+      lowPass: true
+    # Audio buffer and connection settings for better performance
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000
+    opusEncodingQuality: 10
+    resamplingQuality: LOW
+    trackStuckThresholdMs: 10000
+    useSeekGhosting: true
+
+# Plugin configurations
+plugins:
+  # LavaSrc configuration - enhanced for v4 compatibility
+  lavasrc:
+    providers:
+      - "ytsearch:\"%ISRC%\""           # YouTube search using ISRC (most accurate)
+      - "ytsearch:%QUERY%"               # YouTube search using track name + artist
+    sources:
+      spotify: true          # Enable Spotify through LavaSrc
+      applemusic: false      # Disabled - requires Apple Developer account
+      deezer: false          # Disabled - requires premium API access
+      yandexmusic: false     # Disabled
+      flowerytts: false      # Disabled
+      youtube: true          # Enable YouTube searching for Spotify tracks
+    # Enhanced Spotify configuration
+    spotify:
+      clientId: "c5c0d8acbf6c4851af70cff2bff3aafb"
+      clientSecret: "813d32b826cc47cfb2bdc10a5e294528" 
+      countryCode: "US"
+      playlistLoadLimit: 25    
+      albumLoadLimit: 25       
+      searchLimit: 50
+  
+  # YouTube plugin configuration - enhanced for v4 compatibility with remote cipher server 
+  youtube:
+    enabled: true
+    allowSearch: true
+    allowDirectVideoIds: true
+    allowDirectPlaylistIds: true
+    # Remote cipher server configuration for signature deciphering
+    remoteCipher:
+      url: "https://cipher.kikkia.dev/"  # Public cipher server
+      password: ""                       # Empty for public instance
+      userAgent: "SleeplessPY_Bot"       # Our service identifier
+    # Recommended client selection for maximum stability and features
+    clients:
+      - MUSIC              # YouTube Music - best for music search
+      - ANDROID_VR         # Stable Android client with good features
+      - WEB                # Basic web client - most reliable
+      - WEBEMBEDDED        # Embedded player for additional support
+    # Enhanced stability settings for v4
+    playlistPageSize: 100
+    refreshTokenInterval: 60  # Longer interval to avoid rate limits
+    requestRetryInterval: 3000  # Faster retries for better responsiveness
+    # v4 specific optimizations
+    oauth:
+      enabled: false  # Disable OAuth for simplicity
+    rotateSearchResults: true  # Help avoid detection patterns
+ 
+# Disable Spring Cloud Config server import checks
+spring:
+  cloud:
+    config:
+      enabled: false
+      import-check:
+        enabled: false
+
+# Enhanced logging for debugging search and connection issues
+logging:
+  level:
+    root: INFO
+    # Core Lavalink components
+    lavalink: INFO
+    lavalink.server: INFO
+    # Audio engine debugging
+    com.sedmelluq.discord.lavaplayer: INFO
+    com.sedmelluq.discord.lavaplayer.source: DEBUG
+    # Plugin-specific logging
+    dev.lavalink.youtube: INFO
+    com.github.topi314.lavasrc: INFO  
+    # Search debugging
+    com.github.topi314.lavasrc.spotify: DEBUG
+    dev.lavalink.youtube.clients: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/lavalink.log
+    max-size: 50MB
+    max-history: 7

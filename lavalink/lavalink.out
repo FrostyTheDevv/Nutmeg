@@ -1,0 +1,71 @@
+2025-09-14T14:42:54.415-04:00  INFO 348388 --- [           main] lavalink.server.Launcher                 : Starting Launcher v4.1.1 using Java 21.0.7 with PID 348388 (E:\SleeplessPY\lavalink\Lavalink.jar started by billy in E:\SleeplessPY\lavalink)
+2025-09-14T14:42:54.421-04:00  INFO 348388 --- [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-09-14T14:42:55.095-04:00  INFO 348388 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=3d6bf653-92ea-3fde-943a-10b9f8cd696e
+2025-09-14T14:42:55.774-04:00  INFO 348388 --- [           main] lavalink.server.Launcher                 : Started Launcher in 1.791 seconds (process running for 2.315)
+2025-09-14T14:42:55.820-04:00  INFO 348388 --- [           main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.1.1
+	Build time:     05.06.2025 07:37:42 UTC
+	Branch          HEAD
+	Commit:         4238202
+	Commit time:    05.06.2025 07:11:37 UTC
+	JVM:            21.0.7
+	Lavaplayer      2.2.3
+
+2025-09-14T14:42:55.852-04:00  INFO 348388 --- [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-09-14T14:42:56.403-04:00  WARN 348388 --- [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-09-14T14:42:56.432-04:00  INFO 348388 --- [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-09-14T14:42:56.435-04:00  INFO 348388 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 579 ms
+2025-09-14T14:42:56.554-04:00  INFO 348388 --- [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-09-14T14:42:57.511-04:00  INFO 348388 --- [           main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-09-14T14:42:57.511-04:00  INFO 348388 --- [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-09-14T14:42:57.515-04:00  INFO 348388 --- [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-09-14T14:42:57.523-04:00  INFO 348388 --- [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-09-14T14:42:57.621-04:00  WARN 348388 --- [           main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-09-14T14:42:57.918-04:00  INFO 348388 --- [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-09-14T14:42:57.928-04:00  INFO 348388 --- [           main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-09-14T14:42:57.959-04:00  INFO 348388 --- [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-09-14T14:42:58.056-04:00  INFO 348388 --- [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-09-14T14:42:58.160-04:00  INFO 348388 --- [           main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-09-14T14:42:58.163-04:00  WARN 348388 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-09-14T14:42:58.164-04:00  INFO 348388 --- [ 2025-09-14T14:47:06.250-04:00  INFO 345168 --- [  XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-14T14:47:06.251-04:00  INFO 345168 --- [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-14T14:47:06.252-04:00  INFO 345168 --- [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-09-14T14:47:06.263-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /v4
+2025-09-14T14:47:06.309-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /v4.
+2025-09-14T14:47:06.314-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4
+2025-09-14T14:47:06.474-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /v4/socket
+2025-09-14T14:47:06.474-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /v4/socket.
+2025-09-14T14:47:06.474-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/socket
+2025-09-14T14:47:06.564-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /socket
+2025-09-14T14:47:06.564-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /socket.
+2025-09-14T14:47:06.565-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /socket
+2025-09-14T14:47:06.714-04:00  WARN 345168 --- [  XNIO-1 task-2] lavalink.server.config.WebsocketConfig   : This is the old Lavalink websocket endpoint. Please use /v4/websocket instead. If you are using a client library, please update it to a Lavalink v4 compatible version or use Lavalink v3 instead.
+2025-09-14T14:47:06.716-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /
+2025-09-14T14:48:35.206-04:00 ERROR 345168 --- [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Missing User-Id header from /127.0.0.1:55818
+2025-09-14T14:48:35.207-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket
+2025-09-14T14:48:35.294-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /websocket
+2025-09-14T14:48:35.294-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /websocket.
+2025-09-14T14:48:35.294-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /websocket
+2025-09-14T14:48:47.552-04:00 ERROR 345168 --- [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Missing User-Id header from /127.0.0.1:55834
+2025-09-14T14:48:47.552-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket
+2025-09-14T14:48:47.645-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /websocket
+2025-09-14T14:48:47.646-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /websocket.
+2025-09-14T14:48:47.646-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /websocket
+2025-09-14T14:49:15.166-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /v4
+2025-09-14T14:49:15.170-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /v4.
+2025-09-14T14:49:15.171-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4
+2025-09-14T14:49:15.269-04:00  WARN 345168 --- [  XNIO-1 task-2] lavalink.server.config.WebsocketConfig   : This is the old Lavalink websocket endpoint. Please use /v4/websocket instead. If you are using a client library, please update it to a Lavalink v4 compatible version or use Lavalink v3 instead.
+2025-09-14T14:49:15.269-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /
+2025-09-14T14:49:26.654-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No mapping for GET /v4
+2025-09-14T14:49:26.655-04:00  WARN 345168 --- [  XNIO-1 task-2] o.s.web.servlet.PageNotFound             : No endpoint GET /v4.
+2025-09-14T14:49:26.655-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4
+2025-09-14T14:49:26.741-04:00  WARN 345168 --- [  XNIO-1 task-2] lavalink.server.config.WebsocketConfig   : This is the old Lavalink websocket endpoint. Please use /v4/websocket instead. If you are using a client library, please update it to a Lavalink v4 compatible version or use Lavalink v3 instead.
+2025-09-14T14:49:26.742-04:00  INFO 345168 --- [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /

@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.*.local
+
+# Database files
+db/*.json
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Build files
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/

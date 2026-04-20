@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+.DS_Store
+lavalink/Lavalink_v4.jar
+lavalink/logs/
+lavalink/lavalink.err
+frosty-music/src/db/*.json
+*.err

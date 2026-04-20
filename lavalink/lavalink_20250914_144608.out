@@ -1,0 +1,88 @@
+2025-09-14T14:46:10.428-04:00  INFO 347352 --- [           main] lavalink.server.Launcher                 : Starting Launcher v4.1.1 using Java 21.0.7 with PID 347352 (E:\SleeplessPY\lavalink\Lavalink.jar started by billy in E:\SleeplessPY\lavalink)
+2025-09-14T14:46:10.511-04:00  INFO 347352 --- [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-09-14T14:46:11.330-04:00  INFO 347352 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=3d6bf653-92ea-3fde-943a-10b9f8cd696e
+2025-09-14T14:46:12.079-04:00  INFO 347352 --- [           main] lavalink.server.Launcher                 : Started Launcher in 2.184 seconds (process running for 2.804)
+2025-09-14T14:46:12.152-04:00  INFO 347352 --- [           main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.1.1
+	Build time:     05.06.2025 07:37:42 UTC
+	Branch          HEAD
+	Commit:         4238202
+	Commit time:    05.06.2025 07:11:37 UTC
+	JVM:            21.0.7
+	Lavaplayer      2.2.3
+
+2025-09-14T14:46:12.168-04:00  INFO 347352 --- [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-09-14T14:46:12.785-04:00  WARN 347352 --- [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-09-14T14:46:12.805-04:00  INFO 347352 --- [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-09-14T14:46:12.879-04:00  INFO 347352 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 704 ms
+2025-09-14T14:46:13.000-04:00  INFO 347352 --- [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-09-14T14:46:14.005-04:00  INFO 347352 --- [           main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-09-14T14:46:14.006-04:00  INFO 347352 --- [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-09-14T14:46:14.009-04:00  INFO 347352 --- [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-09-14T14:46:14.016-04:00  INFO 347352 --- [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-09-14T14:46:14.117-04:00  WARN 347352 --- [           main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-09-14T14:46:14.522-04:00  INFO 347352 --- [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-09-14T14:46:14.532-04:00  INFO 347352 --- [           main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-09-14T14:46:14.551-04:00  INFO 347352 --- [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-09-14T14:46:14.684-04:00  INFO 347352 --- [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-09-14T14:46:14.801-04:00  INFO 347352 --- [           main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-09-14T14:46:14.804-04:00  WARN 347352 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-09-14T14:46:14.806-04:00  INFO 347352 --- [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-09-14T14:46:14.810-04:00 ERROR 347352 --- [           main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.1.1]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.1.1]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[Lavalink.jar:4.1.1]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[Lavalink.jar:4.1.1]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[Lavalink.jar:4.1.1]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[Lavalink.jar:4.1.1]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-09-14T14:46:14.841-04:00  INFO 347352 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-09-14T14:46:14.868-04:00 ERROR 347352 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+

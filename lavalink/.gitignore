@@ -1,0 +1,23 @@
+# Lavalink files
+Lavalink*.jar
+*.jar
+
+# Logs
+*.log
+logs/
+lavalink.err
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Plugins directory (will be downloaded on Railway)
+plugins/*.jar
+
+# Temporary files
+tmp/
+temp/
