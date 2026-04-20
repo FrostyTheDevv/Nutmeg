@@ -4,7 +4,7 @@
 ## Configuration
 
 ### Lavalink Server
-- **Host:** `127.0.0.1`
+- **Host:** `ip based`
 - **Port:** `2333`
 - **Password:** `youshallnotpass`
 - **Plugins:** LavaSrc (Spotify), YouTube, Apple Music, Deezer, ect/
