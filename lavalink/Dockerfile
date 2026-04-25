@@ -6,8 +6,8 @@ WORKDIR /opt/Lavalink
 # Install curl for healthchecks
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Download Lavalink v4 (latest stable)
-RUN curl -L https://github.com/lavalink-devs/Lavalink/releases/download/4.0.8/Lavalink.jar -o Lavalink.jar
+# Download Lavalink v4.2.0 (DAVE encryption support)
+RUN curl -L https://github.com/lavalink-devs/Lavalink/releases/download/4.2.0/Lavalink.jar -o Lavalink.jar
 
 # Copy application.yml
 COPY application.yml ./application.yml

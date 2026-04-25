@@ -246,7 +246,8 @@ module.exports = {
             voiceChannelId: vc.id,
             textChannelId: interaction.channel.id,
             selfDeaf: true,
-            volume: 80
+            volume: 100,
+            vcRegion: vc.rtcRegion
           });
           await player.connect();
         }

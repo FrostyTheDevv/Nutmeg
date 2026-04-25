@@ -25,23 +25,23 @@ async function checkLavalink() {
 
 async function startLavalink() {
   const LAVALINK_PATH = path.join(__dirname, '..', '..', 'lavalink');
-  const LAVALINK_JAR = path.join(LAVALINK_PATH, 'Lavalink_v4.jar');
+  const LAVALINK_JAR = path.join(LAVALINK_PATH, 'Lavalink.jar');
   
   if (!fs.existsSync(LAVALINK_JAR)) {
-    console.error('❌ Lavalink_v4.jar not found at:', LAVALINK_JAR);
+    console.error('❌ Lavalink.jar not found at:', LAVALINK_JAR);
     console.log('⚠️  Continuing without local Lavalink...');
     return false;
   }
 
-  console.log('🚀 Starting Lavalink server...');
+  console.log('🚀 Starting Lavalink v4.2.0 with DAVE support...');
   
   const lavalink = spawn('java', [
     '-Xmx1G',
     '-jar', 
-    'Lavalink_v4.jar'
+    'Lavalink.jar'
   ], {
     cwd: LAVALINK_PATH,
-    stdio: ['ignore', 'pipe', 'pipe'],
+    stdio: 'inherit',
     shell: true,
     detached: false
   });
@@ -49,22 +49,6 @@ async function startLavalink() {
   return new Promise((resolve) => {
     let resolved = false;
     
-    lavalink.stdout.on('data', (data) => {
-      const output = data.toString();
-      if (!resolved && (output.includes('Lavalink is ready') || output.includes('Started Launcher'))) {
-        resolved = true;
-        console.log('✅ Lavalink is ready!');
-        resolve(true);
-      }
-    });
-
-    lavalink.stderr.on('data', (data) => {
-      const output = data.toString();
-      if (output.includes('ERROR')) {
-        console.error('[Lavalink Error]', output.trim());
-      }
-    });
-
     lavalink.on('error', (err) => {
       console.error('❌ Failed to start Lavalink:', err.message);
       if (!resolved) {
@@ -76,7 +60,7 @@ async function startLavalink() {
     setTimeout(() => {
       if (!resolved) {
         resolved = true;
-        console.log('⚠️  Lavalink startup timeout, continuing anyway...');
+        console.log('✅ Lavalink starting in background...');
         resolve(true);
       }
     }, 30000);
@@ -88,7 +72,18 @@ if (AUTO_START_LAVALINK && LAVALINK_HOST === '127.0.0.1') {
     const isRunning = await checkLavalink();
     if (!isRunning) {
       await startLavalink();
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('⏳ Waiting for Lavalink HTTP endpoint...');
+      for (let i = 0; i < 30; i++) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const ready = await checkLavalink();
+        if (ready) {
+          console.log('✅ Lavalink HTTP endpoint ready!');
+          break;
+        }
+        if (i === 29) {
+          console.error('❌ Lavalink endpoint timeout');
+        }
+      }
     } else {
       console.log('✅ Lavalink already running');
     }
@@ -113,6 +108,14 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.commandIds = new Map();
+
+client.on('raw', (d) => {
+  if (d.t === 'VOICE_STATE_UPDATE' || d.t === 'VOICE_SERVER_UPDATE') {
+    console.log(`📡 Voice event: ${d.t} for guild ${d.d?.guild_id || 'unknown'}`);
+  }
+  client.lavalink.sendRawData(d);
+});
 
 client.lavalink = new LavalinkManager({
   nodes: [{
@@ -133,6 +136,7 @@ client.lavalink = new LavalinkManager({
     username: process.env.LAVALINK_CLIENT_NAME || 'MusicBot' 
   },
   autoSkip: true,
+  autoMove: true,
   playerOptions: {
     clientBasedPositionUpdateInterval: 150,
     defaultSearchPlatform: 'ytsearch',
@@ -140,6 +144,10 @@ client.lavalink = new LavalinkManager({
     onDisconnect: { autoReconnect: true, destroyPlayer: false },
     onEmptyQueue: { destroyAfterMs: 300000 },
     useUnresolvedData: true,
+    voiceChannelOptions: {
+      selfDeaf: true,
+      selfMute: false
+    }
   },
   queueOptions: { maxPreviousTracks: 25 },
 });
@@ -158,17 +166,34 @@ function is247Enabled(guildId) {
 }
 
 client.lavalink
+  .on('playerCreate', (player) => {
+    console.log(`👤 Player created for guild ${player.guildId}`);
+    console.log(`🔊 Initial state: voiceChannel=${player.voiceChannelId}, textChannel=${player.textChannelId}`);
+  })
+  .on('playerDestroy', (player) => {
+    console.log(`💀 Player destroyed for guild ${player.guildId}`);
+  })
   .on('trackStart', (player, track) => {
-    console.log(`Now playing: ${track.info.title} in ${player.guildId}`);
+    console.log(`🎵 Track started: ${track.info.title} in ${player.guildId}`);
+    console.log(`🔊 Voice state: connected=${player.connected}, voiceChannel=${player.voiceChannelId}`);
   })
   .on('trackEnd', (player, track, payload) => {
-    console.log(`Track ended: ${track.info.title} - ${payload.reason}`);
+    console.log(`⏹️ Track ended: ${track.info.title} - Reason: ${payload.reason}`);
+    if (payload.reason === 'loadFailed') {
+      console.error('❌ Track failed to load - check Lavalink logs for details');
+    }
   })
   .on('trackStuck', (player, track) => {
-    console.error(`Track stuck: ${track.info.title}`);
+    console.error(`⚠️ Track stuck: ${track.info.title}`);
   })
   .on('trackError', (player, track, err) => {
-    console.error(`Track error: ${track.info.title}`, err.exception?.message);
+    console.error(`❌ Track error: ${track.info.title}`, err.exception?.message);
+  })
+  .on('playerMove', (player, oldChannel, newChannel) => {
+    console.log(`🔀 Player moved from ${oldChannel} to ${newChannel} in guild ${player.guildId}`);
+  })
+  .on('playerDisconnect', (player, voiceChannelId) => {
+    console.log(`🔌 Player disconnected from channel ${voiceChannelId} in guild ${player.guildId}`);
   })
   .on('nodeConnect', (node) => {
     console.log(`✅ Lavalink node ${node.options.id} connected`);
@@ -181,6 +206,12 @@ client.lavalink
   })
   .on('nodeError', (node, error) => {
     console.error(`❌ Lavalink node ${node.options.id} error:`, error.message || error);
+  })
+  .on('playerUpdate', (player) => {
+    console.log(`🔄 Player update: guild=${player.guildId}, connected=${player.connected}, playing=${player.playing}`);
+  })
+  .on('playerSocketClosed', (player, payload) => {
+    console.error(`⚠️ Voice socket closed for guild ${player.guildId}:`, payload);
   })
   .on('queueEnd', (player) => {
     console.log(`Queue ended in guild ${player.guildId}`);
@@ -278,6 +309,10 @@ async function deployCommands() {
           { body: commands }
         );
         console.log(`✅ Successfully deployed ${data.length} commands to guild ${guildId}`);
+        
+        data.forEach(cmd => {
+          client.commandIds.set(cmd.name, cmd.id);
+        });
       }
     } else {
       const data = await rest.put(
@@ -285,7 +320,13 @@ async function deployCommands() {
         { body: commands }
       );
       console.log(`✅ Successfully deployed ${data.length} global commands`);
+      
+      data.forEach(cmd => {
+        client.commandIds.set(cmd.name, cmd.id);
+      });
     }
+    
+    console.log(`📝 Stored ${client.commandIds.size} command IDs`);
   } catch (error) {
     console.error('❌ Failed to deploy commands:', error);
   }
@@ -296,17 +337,15 @@ client.once('clientReady', async () => {
   
   await deployCommands();
   
-  await client.lavalink.init({ id: client.user.id, username: client.user.username });
+  await client.lavalink.init({ ...client.user, shards: 'auto' });
   client.lavalink.nodeManager.on('error', (node, error) => {
     console.error(`❌ Lavalink Node ${node.options.id} error:`, error.message);
   });
 
   console.log('🎵 Lavalink initialized and connected');
   
-  client.user.setActivity('/unrestr1cted', { type: 0 });
+  client.user.setActivity('/shrmurdaaa', { type: 0 });
 });
-
-client.on('raw', d => client.lavalink.sendRawData(d));
 
 const commandAliases = new Map([
   ['p', 'play'],
@@ -534,6 +573,43 @@ client.on('messageCreate', async message => {
 });
 
 client.on('interactionCreate', async i => {
+  if (i.isButton()) {
+    if (i.customId === 'help_refresh') {
+      const helpCommand = client.commands.get('help');
+      if (helpCommand) {
+        await helpCommand.execute(i, client);
+      }
+      return;
+    }
+    
+    if (i.customId === 'help_support') {
+      const { ContainerBuilder, MessageFlags } = require('discord.js');
+      const { styles } = require('./components/builders');
+      
+      const supportContainer = new ContainerBuilder()
+        .setAccentColor(styles.Colors.PRIMARY)
+        .addTextDisplayComponents(
+          t => t.setContent("**❓ Need Help?**"),
+          t => t.setContent(
+            "**Common Issues:**\n" +
+            "• Make sure you're in a voice channel\n" +
+            "• Bot needs 'Connect' and 'Speak' permissions\n" +
+            "• Check if bot is online and connected\n\n" +
+            "**Support:**\n" +
+            "• GitHub: https://github.com/FrostyTheDevv/Nutmeg\n" +
+            "• Use `/play <song>` to start playing music\n" +
+            "• Use `/queue` to view current queue"
+          )
+        );
+      
+      await i.update({ 
+        components: [supportContainer], 
+        flags: MessageFlags.IsComponentsV2 
+      });
+      return;
+    }
+  }
+  
   if (!i.isChatInputCommand()) return;
   const cmd = client.commands.get(i.commandName);
   if (!cmd) return;

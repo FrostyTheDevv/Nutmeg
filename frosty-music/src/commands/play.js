@@ -25,7 +25,7 @@ module.exports = {
 
   async execute(interaction, client) {
     try {
-      await interaction.deferReply({ flags: MessageFlags.IsComponentsV2 });
+      await interaction.deferReply();
 
       const vc = interaction.member.voice.channel;
       if (!vc) {
@@ -58,9 +58,13 @@ module.exports = {
           voiceChannelId: vc.id,
           textChannelId: interaction.channel.id,
           selfDeaf: true,
-          volume: 80
+          selfMute: false,
+          volume: 100,
+          vcRegion: vc.rtcRegion
         });
+        console.log(`🔊 Player created for channel ${vc.id}`);
         await player.connect();
+        console.log(`✅ Player connected with Lavalink v4.2.0 (DAVE-compatible)`);
       }
 
       if (player.voiceChannelId !== vc.id) {
@@ -98,7 +102,12 @@ module.exports = {
       const added = isPlaylist ? res.tracks : [track];
       
       const wasPlaying = player.playing || player.paused;
+      
       player.queue.add(added);
+      
+      if (!wasPlaying) {
+        await player.play();
+      }
 
       const trackUrl = track.info.uri || "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
       const queuePosition = wasPlaying ? player.queue.tracks.length : 1;
@@ -128,7 +137,9 @@ module.exports = {
             .setContent(
               isPlaylist
                 ? `**${sourceIcon} Added Playlist** [${res.playlist?.name || "Unknown Playlist"}](${trackUrl})`
-                : `**${sourceIcon} Now Playing** [${track.info.title}](${trackUrl})`
+                : wasPlaying
+                  ? `**${sourceIcon} Added to Queue** [${track.info.title}](${trackUrl})`
+                  : `**${sourceIcon} Now Playing** [${track.info.title}](${trackUrl})`
             ),
           new TextDisplayBuilder()
             .setContent(
@@ -156,10 +167,6 @@ module.exports = {
 
       await interaction.editReply({ components: [container], flags: MessageFlags.IsComponentsV2 });
 
-      if (!player.playing && !player.paused) {
-        await player.play();
-      }
-
       const reply = await interaction.fetchReply().catch(() => null);
       if (reply) {
         setupMessageCollector(reply, player, client, interaction.guild.id);
@@ -174,10 +181,14 @@ module.exports = {
           t => t.setContent(`An error occurred: ${error.message}`)
         );
       
-      if (interaction.deferred || interaction.replied) {
-        await interaction.editReply({ components: [errorCont], flags: MessageFlags.IsComponentsV2 });
-      } else {
-        await interaction.reply({ components: [errorCont], flags: MessageFlags.IsComponentsV2, ephemeral: true });
+      try {
+        if (interaction.deferred || interaction.replied) {
+          await interaction.editReply({ components: [errorCont], flags: MessageFlags.IsComponentsV2 }).catch(() => {});
+        } else {
+          await interaction.reply({ components: [errorCont], flags: MessageFlags.IsComponentsV2 | MessageFlags.Ephemeral }).catch(() => {});
+        }
+      } catch (e) {
+        console.error('Error sending error message:', e);
       }
     }
   },
