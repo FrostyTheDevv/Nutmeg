@@ -1,0 +1,12 @@
+{
+  "name": "nutmeg-bot",
+  "version": "1.0.0",
+  "description": "Discord music bot with Lavalink",
+  "scripts": {
+    "start": "cd src && node index.js",
+    "install": "cd src && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
