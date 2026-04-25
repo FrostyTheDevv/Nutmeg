@@ -112,9 +112,13 @@ client.commandIds = new Map();
 
 client.on('raw', (d) => {
   if (d.t === 'VOICE_STATE_UPDATE' || d.t === 'VOICE_SERVER_UPDATE') {
-    console.log(`📡 Voice event: ${d.t} for guild ${d.d?.guild_id || 'unknown'}`);
+    console.log(`📡 Voice event: ${d.t} for guild ${d.d?.guild_id || 'unknown'}`, JSON.stringify(d.d || {}));
   }
-  client.lavalink.sendRawData(d);
+  if (client.lavalink) {
+    client.lavalink.sendRawData(d);
+  } else {
+    console.warn('⚠️ Lavalink manager not initialized yet, skipping raw event');
+  }
 });
 
 client.lavalink = new LavalinkManager({
@@ -129,7 +133,13 @@ client.lavalink = new LavalinkManager({
   }],
   sendToShard: (guildId, payload) => {
     const guild = client.guilds.cache.get(guildId);
-    if (guild) guild.shard.send(payload);
+    console.log(`📤 sendToShard called: guild=${guildId}, hasGuild=${!!guild}, op=${payload?.op}, d=${JSON.stringify(payload?.d || {})}`);
+    if (guild) {
+      guild.shard.send(payload);
+      console.log(`✅ Sent payload to shard for guild ${guildId}`);
+    } else {
+      console.error(`❌ Guild ${guildId} not found in cache!`);
+    }
   },
   client: { 
     id: process.env.CLIENT_ID, 
