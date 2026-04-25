@@ -1,5 +1,6 @@
 [phases.setup]
-nixPkgs = ["nodejs_20"]
+nixPkgs = ["nodejs_20", "python3", "gcc", "gnumake", "pkg-config", "libtool", "autoconf", "automake"]
+aptPkgs = ["libopus-dev", "libopus0"]
 
 [start]
 cmd = "npm start"
