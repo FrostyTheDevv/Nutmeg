@@ -5,7 +5,7 @@ server:
 lavalink:
   plugins:
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.0"
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.8.1"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
   server:
     password: "youshallnotpass"
     sources:
@@ -41,8 +41,8 @@ plugins:
       - "ytsearch:%QUERY%"
     sources:
       spotify: true
-      applemusic: true
-      deezer: true
+      applemusic: false
+      deezer: false
       yandexmusic: false
     spotify:
       clientId: "c5c0d8acbf6c4851af70cff2bff3aafb"
@@ -50,13 +50,6 @@ plugins:
       countryCode: "US"
       playlistLoadLimit: 6
       albumLoadLimit: 6
-    applemusic:
-      countryCode: "US"
-      mediaAPIToken: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjg4MDQ4ODE5LCJleHAiOjE2OTU4MjQ4MTksInJvb3RfaHR0cHNfb3JpZ2luIjpbImFwcGxlLmNvbSJdfQ.r_CMw1xbBu7O1eWPBOCMwFNw3xfNy1PtHe4PaYQHPZN0yQEcILqzQf1A3NcFVlvDzGnlKhKQC2VxnwDvjB3k3A"
-      playlistLoadLimit: 6
-      albumLoadLimit: 6
-    deezer:
-      masterDecryptionKey: "your_master_decryption_key_here"
 
 logging:
   level:
