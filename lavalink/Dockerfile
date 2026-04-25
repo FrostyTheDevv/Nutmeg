@@ -1,5 +1,5 @@
 # Lavalink Dockerfile for Railway Deployment
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre
 
 WORKDIR /opt/Lavalink
 
