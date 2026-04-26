@@ -9,19 +9,20 @@ lavalink:
   server:
     password: "youshallnotpass"
     sources:
-      youtube: false
+      youtube: true
       bandcamp: true
       soundcloud: true
       twitch: true
       vimeo: true
       http: true
       local: false
-    bufferDurationMs: 400
-    frameBufferDurationMs: 5000
+    bufferDurationMs: 800
+    frameBufferDurationMs: 1000
     opusEncodingQuality: 10
     resamplingQuality: HIGH
     trackStuckThresholdMs: 10000
     useSeekGhosting: true
+    youtubePlaylistLoadLimit: 100
 
 plugins:
   youtube:
@@ -30,10 +31,17 @@ plugins:
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
     clients:
-      - TVHTML5_SIMPLY
+      - MUSIC
+      - ANDROID_TESTSUITE
+      - WEB
+      - TVHTML5_SIMPLY_EMBEDDED_PLAYER
       - ANDROID_VR
       - IOS
       - WEBEMBEDDED
+    WEB:
+      playback: true
+    TVHTML5_SIMPLY_EMBEDDED_PLAYER:
+      playback: true
 
   lavasrc:
     providers:

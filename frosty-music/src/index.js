@@ -191,6 +191,18 @@ client.lavalink
     console.log(`⏹️ Track ended: ${track.info.title} - Reason: ${payload.reason}`);
     if (payload.reason === 'loadFailed') {
       console.error('❌ Track failed to load - check Lavalink logs for details');
+      
+      const channel = client.channels.cache.get(player.textChannelId);
+      if (channel && track.info.sourceName === 'youtube') {
+        channel.send({
+          embeds: [{
+            color: 0xff0000,
+            title: '⚠️ YouTube Track Failed',
+            description: `**${track.info.title}** failed to load due to YouTube bot detection.\n\n💡 **Tip:** Use Spotify links for better reliability!`,
+            footer: { text: 'Automatically skipping to next track...' }
+          }]
+        }).catch(() => {});
+      }
     }
   })
   .on('trackStuck', (player, track) => {
@@ -223,7 +235,7 @@ client.lavalink
   .on('playerSocketClosed', (player, payload) => {
     console.error(`⚠️ Voice socket closed for guild ${player.guildId}:`, payload);
   })
-  .on('queueEnd', (player) => {
+  .on('queueEnd', (player, track, payload) => {
     console.log(`Queue ended in guild ${player.guildId}`);
     
     const is247 = is247Enabled(player.guildId) || player.data?.['247'];
@@ -235,11 +247,14 @@ client.lavalink
     
     const channel = client.channels.cache.get(player.textChannelId);
     if (channel) {
+      const wasFailed = payload?.reason === 'loadFailed';
       channel.send({
         embeds: [{
-          color: 0xffa500,
-          title: '🎵 Queue Finished',
-          description: 'No more tracks to play! Add more songs with `/play`',
+          color: wasFailed ? 0xff0000 : 0xffa500,
+          title: wasFailed ? '⚠️ All Tracks Failed' : '🎵 Queue Finished',
+          description: wasFailed 
+            ? 'All tracks failed to load due to YouTube restrictions.\n\n💡 **Try using Spotify links instead!**\nExample: `/play https://open.spotify.com/track/...`'
+            : 'No more tracks to play! Add more songs with `/play`',
         }]
       }).catch(() => {});
     }
