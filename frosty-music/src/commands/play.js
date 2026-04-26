@@ -78,15 +78,21 @@ module.exports = {
       }
 
       const spotifyMatch = query.match(/open\.spotify\.com\/(track|album|playlist)\/([a-zA-Z0-9]+)/);
+      const youtubePlaylistMatch = query.match(/(?:youtube\.com\/playlist\?list=|youtu\.be\/.*list=)([a-zA-Z0-9_-]+)/);
       let searchQuery = query;
       
       if (spotifyMatch) {
-        console.log(`Spotify ${spotifyMatch[1]} detected: ${query}`);
+        console.log(`🟢 Spotify ${spotifyMatch[1]} detected: ${query}`);
+      } else if (youtubePlaylistMatch) {
+        console.log(`🔴 YouTube playlist detected: ${query}`);
       } else if (!query.match(/^https?:\/\//)) {
         searchQuery = `ytsearch:${query}`;
       }
 
+      console.log(`🔍 Searching with query: ${searchQuery}`);
       const res = await player.search({ query: searchQuery }, interaction.user);
+      console.log(`📊 Search result: loadType=${res?.loadType}, tracks=${res?.tracks?.length || 0}`);
+      
       if (!res?.tracks?.length) {
         const cont = new ContainerBuilder()
           .setAccentColor(styles.Colors.WARNING)
